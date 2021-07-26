@@ -1,1 +1,102 @@
 -- Question 1
+-- How many actors are there with last name 'Wahlberg?
+-- 2
+SELECT COUNT(last_name)
+FROM actor
+WHERE last_name = 'Wahlberg';
+
+-- Question 2
+-- How many payments were made between $3.99 and $5.99?
+-- 5607
+SELECT COUNT(amount)
+FROM payment
+WHERE amount BETWEEN 3.99 and 5.99;
+
+-- Question 3
+-- What film does the store have the most of? (search in inventory)
+-- 72 different films show up as having (8) copies 
+-- but film # 193 (top result for below query) is "Crossroads Casualties"
+SELECT film_id, COUNT(film_id)
+FROM inventory
+GROUP BY film_id
+ORDER BY COUNT(film_id) DESC;
+
+SELECT film_id, title
+FROM film
+WHERE film_id = 193;
+
+-- Question 4
+-- How many customers have the last name ‘William’?
+-- 0
+SELECT COUNT(last_name)
+FROM customer
+WHERE last_name = 'William';
+
+-- Question 5
+-- What store employee (get the id) sold the most rentals?
+-- Mike Hillyer, staff_id 1, had 8040 rentals, compared to Jon Stephens' 8004
+
+SELECT *
+FROM staff;
+-- 1 = Mike Hillyer
+-- 2 = Jon Stephens
+
+SELECT staff_id, COUNT(rental_id)
+FROM rental
+GROUP BY staff_id;
+-- 1 = 8040 rentals
+-- 2 = 8004 rentals
+
+-- Question 6
+-- How many different district names are there?
+-- 378 unique/distinct districts
+
+SELECT COUNT(DISTINCT district)
+FROM address;
+
+-- Question 7
+-- What film has the most actors in it? (use film_actor table and get film_id)
+-- Lambs Cincinatti
+
+SELECT film_id, COUNT(actor_id)
+FROM film_actor
+GROUP BY film_id
+ORDER BY COUNT(actor_id) DESC;
+-- film_id 508 has 15 actors
+
+SELECT film_id, title
+FROM film
+WHERE film_id = 508;
+-- Lambs Cincinatti
+
+-- Question 8
+-- From store_id 1, how many customers have a last name ending with ‘es’? (use customer table)
+-- 13
+
+SELECT COUNT(last_name)
+FROM customer
+WHERE store_id = 1 AND last_name LIKE '%es'
+
+-- Question 9
+-- How many payment amounts (4.99, 5.99, etc.) had a number of rentals above 250 for customers
+-- with ids between 380 and 430? (use group by and having > 250)
+-- Answer: 3
+
+SELECT amount, COUNT(amount)
+from payment
+WHERE customer_id BETWEEN 380 and 430
+GROUP BY amount
+HAVING COUNT(amount) > 250 
+ORDER BY amount ASC;
+
+-- Question 10
+-- Within the film table, how many rating categories are there? And what rating has the most movies total?
+SELECT *
+FROM film
+
+-- looking for count of distinct rating categories and count of film_id with that rating category
+SELECT rating, COUNT(film_id) -- can also do COUNT(rating), depending on how you interpret the question
+from film
+GROUP BY rating
+ORDER BY COUNT(film_id) ASC
+
