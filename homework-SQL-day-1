@@ -91,6 +91,8 @@ ORDER BY amount ASC;
 
 -- Question 10
 -- Within the film table, how many rating categories are there? And what rating has the most movies total?
+-- 5 rating categories. PG-13 has the most titles with 223
+
 SELECT *
 FROM film
 
