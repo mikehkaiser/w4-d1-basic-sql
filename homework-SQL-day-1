@@ -13,7 +13,7 @@ FROM payment
 WHERE amount BETWEEN 3.99 and 5.99;
 
 -- Question 3
--- What film does the store have the most of? (search in inventory)
+-- What film does the company have the most of? (search in inventory)
 -- 72 different films show up as having (8) copies 
 -- but film # 193 (top result for below query) is "Crossroads Casualties"
 SELECT film_id, COUNT(film_id)
@@ -55,7 +55,7 @@ SELECT COUNT(DISTINCT district)
 FROM address;
 
 -- Question 7
--- What film has the most actors in it? (use film_actor table and get film_id)
+-- Which film has the most actors in it? (use film_actor table and get film_id)
 -- Lambs Cincinatti
 
 SELECT film_id, COUNT(actor_id)
@@ -75,7 +75,7 @@ WHERE film_id = 508;
 
 SELECT COUNT(last_name)
 FROM customer
-WHERE store_id = 1 AND last_name LIKE '%es'
+WHERE store_id = 1 AND last_name LIKE '%es';
 
 -- Question 9
 -- How many payment amounts (4.99, 5.99, etc.) had a number of rentals above 250 for customers
@@ -93,12 +93,12 @@ ORDER BY amount ASC;
 -- Within the film table, how many rating categories are there? And what rating has the most movies total?
 -- 5 rating categories. PG-13 has the most titles with 223
 
-SELECT *
-FROM film
+SELECT COUNT(DISTINCT rating)
+FROM film;
 
--- looking for count of distinct rating categories and count of film_id with that rating category
+-- looking for count of rating categories and count of film_id with that rating category
 SELECT rating, COUNT(film_id) -- can also do COUNT(rating), depending on how you interpret the question
 from film
 GROUP BY rating
-ORDER BY COUNT(film_id) ASC
+ORDER BY COUNT(film_id) ASC;
 
